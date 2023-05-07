@@ -1,0 +1,186 @@
+:root {
+  --base: #1e2030;
+  --primary: #cad3f5;
+  --secondary: #f5a97f;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary);
+}
+
+ul {
+  list-style: none;
+}
+
+.main a {
+  text-decoration-line: underline;
+  text-decoration-color: var(--secondary);
+  text-decoration-thickness: 0.2rem;
+}
+
+.main ul {
+    /* list-style: none; */
+}
+
+.main li:not(.post-tag)::before {
+  color: var(--secondary);
+  content: "► ";
+}
+
+a:hover {
+  color: var(--secondary);
+}
+
+body {
+  font-size: 1.8rem;
+  background-color: var(--base);
+  color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  width: min(90%, 75rem);
+  margin-inline: auto;
+  min-height: 100dvh;
+}
+
+.header {
+  /* border: 1px solid white; */
+}
+
+.navbar {
+  padding: 2rem 0;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  height: 3.5rem;
+  align-items: center;
+}
+
+.navbar-logo {
+  flex-basis: 85%;
+  font-size: 2.7rem;
+}
+
+.navbar-link {
+  font-size: 2.7rem;
+  margin-inline: 0.5rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.posts_container {
+  margin: 0 0 3rem;
+}
+
+.blog-title {
+  font-size: 2.5rem;
+  color: var(--secondary);
+  margin-bottom: 1rem;
+}
+
+.post {
+  margin-bottom: 1.5rem;
+  line-height: 3rem;
+}
+
+.preview-post-date {
+  font-weight: 300;
+}
+
+.preview-post-title {
+  font-weight: 500;
+}
+
+.pagination {
+}
+
+.previous {
+}
+
+.next {
+}
+
+.tags_container {
+  margin: 0 0 3rem;
+}
+
+.post-tags {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.post-tag {
+  list-style: none;
+  background-color: var(--secondary);
+  border-radius: 10%;
+  padding: 0.3rem;
+}
+
+.post-tag a {
+  color: black;
+}
+
+.show-all-tags {
+}
+
+.main {
+}
+
+.post-title {
+    color: var(--secondary);
+    font-size: 3rem;
+}
+
+.post-date {
+    margin: 0.7rem 0;
+}
+
+.main p {
+    line-height: 3rem;
+    margin: 1.5rem 0;
+}
+
+.main code{
+    background-color: #494d64;
+}
+
+.footer {
+  margin-top: auto;
+  text-align: center;
+}
+
+.footer-logo {
+  font-size: 2.5rem;
+}
+
+@media (min-width: 40rem) {
+  .container {
+    flex-direction: row;
+  }
+
+  .posts_container {
+    width: 70%;
+  }
+
+  .tags_container {
+    width: 30%;
+  }
+}
