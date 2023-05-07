@@ -1,0 +1,57 @@
+{% extends "index.html" %} {% block content %}
+
+<!-- POSTS_CONTAINER START-->
+<div class="posts_container">
+  <h1 class="blog-title">{{section.title}}</h1>
+
+  <!-- ITERATING POSTS START -->
+  {% for page in paginator.pages %}
+
+  <article class="post">
+    <p class="preview-post-date">
+      {{page.date | date(format="%B %d,%Y", locale="es_MX") | capitalize }}
+    </p>
+    <a href="{{ page.permalink | safe }}" class="preview-post-title"
+      >{{ page.title }}</a
+    >
+  </article>
+    {% endfor %}
+  <!-- ITERATING POSTS END -->
+
+  <!-- PAGINATION START -->
+  <nav class="pagination">
+    {% if paginator.previous %}
+    <a class="previous" href="{{ paginator.previous }}">‹ Previo</a>
+    {% endif %} {% if paginator.next %}
+    <a class="next" href="{{ paginator.next }}">Siguiente ›</a>
+    {% endif %}
+  </nav>
+  <!-- PAGINATION END -->
+</div>
+
+
+<!-- POSTS_CONTAINER END-->
+
+<!-- TAGS_CONTAINER START -->
+<div class="tags_container">
+  <!-- TAGS START -->
+  <p><i class="ri-bookmark-fill"></i> Etiquetas</p>
+  <ul class="post-tags">
+    {% for page in paginator.pages | slice(end=2) %} {%- for tag in
+    page.taxonomies.tags | sort %}
+    <li class="post-tag">
+      <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}"
+        >#{{ tag }}</a
+      >
+    </li>
+    {% endfor -%} {% endfor %}
+  </ul>
+  <a href="{{ config.base_url | safe }}/tags" class="show-all-tags"
+    >Mostrar todas -></a
+  >
+  {% for page in paginator.pages %} {% endfor %}
+  <!-- TAGS END -->
+</div>
+<!-- TAGS_CONTAINER END -->
+
+{% endblock content %}
