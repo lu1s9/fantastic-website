@@ -24,6 +24,20 @@ ul {
   list-style: none;
 }
 
+li strong { 
+    color: var(--secondary);
+}
+
+h2{
+    /* margin: 0.5rem 0; */
+    margin-top: 1rem;
+}
+
+.main img {
+  width: 90%;
+  /* margin-left: 5%; */
+}
+
 .main a {
   text-decoration-line: underline;
   text-decoration-color: var(--secondary);
@@ -144,6 +158,10 @@ body {
 .main {
 }
 
+.main li {
+    line-height: 4rem;
+}
+
 .post-title {
   color: var(--secondary);
   font-size: 3rem;
@@ -156,9 +174,10 @@ body {
 .main p {
   line-height: 3rem;
   margin: 1.5rem 0;
+  text-align: justify;
 }
 
-.main p code {
+.main p code, .main li code {
   background-color: #494d64;
 }
 
@@ -176,6 +195,7 @@ body {
 pre {
   padding: 1rem;
   overflow: auto;
+  margin-bottom: 2rem;
 }
 /* The line numbers already provide some kind of left/right padding */
 pre[data-linenos] {
