@@ -51,7 +51,7 @@ A este correo llegarán avisos de certificados que estan próximos a caducar.
 De la misma manera, cambia el nombre del archivo `.env.example` a `.env`,
 añade el dominio o subdominio correspondiente a las variables `VIRTUAL_HOST` y 
 `LETSENCRYPT_HOST` del siguiente 
-[ejemplo](https://github.com/lu1s9/vigilant-docker/tree/main/nginx-website).
+[ejemplo](https://github.com/lu1s9/vigilant-docker/tree/main/website).
 
 Finalmente crea el contenedor con `docker compose up -d`.
 
