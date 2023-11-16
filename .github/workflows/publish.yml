@@ -1,8 +1,12 @@
 name: Build and Publish to AWS
+
 on:
   push:
     branches:
       - main
+
+  workflow_dispatch:
+    
 jobs:
   run:
     runs-on: ubuntu-latest
