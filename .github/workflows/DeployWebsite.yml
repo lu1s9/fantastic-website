@@ -20,6 +20,7 @@ jobs:
           tool: zola@0.17.2
       - name: Build
         run: zola build
+        working-directory: ./src
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
