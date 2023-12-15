@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <title>lu1s9 blog</title>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="navbar">
+        <ul class="navbar-links">
+          <li class="navbar-logo"><a href="https:&#x2F;&#x2F;lu1s09.xyz">lu1s9</a></li>
+          <li class="navbar-link">
+            <a href="https://github.com/lu1s9"
+              ><i class="ri-github-fill"></i
+            ></a>
+        </ul>
+      </nav>
+    </header>
+    <div class="container">
+
+<!-- MAIN CONTENT START -->
+<main class="main">
+  <h1 class="post-title">Seguridad para tu servidor linux</h1>
+  <p class="post-date">
+    Mayo 14,2023
+  </p>
+
+  <!-- LIST_TAGS START -->
+  <ul class="post-tags">
+    <li class="post-tag">
+      <a href="https://lu1s09.xyz/tags/debian/"
+        >#debian</a
+      >
+    </li>
+    
+    <li class="post-tag">
+      <a href="https://lu1s09.xyz/tags/firewall/"
+        >#firewall</a
+      >
+    </li>
+    
+    <li class="post-tag">
+      <a href="https://lu1s09.xyz/tags/vps/"
+        >#vps</a
+      >
+    </li>
+    </ul>
+  <!-- LIST_TAGS END -->
+
+  <p>Como medida adicional de seguridad para tu servidor puedes prevenir el acceso 
+a intrusos e imponer sanciones con una herramienta llamada <em>Fail2ban</em>. 
+Adicionalmente, puedes configurar el cortafuegos para controlar tráfico 
+entrante o saliente con <em>Uncomplicated Firewall</em>.</p>
+<p>En Debian, el primer paquete se instala con el siguiente comando:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sudo</span><span> apt install fail2ban
+</span></code></pre>
+<p>Comprobando que se haya inicializado el servicio.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">systemctl</span><span> status fail2ban
+</span></code></pre>
+<p>Los valores predeterminados de esta herramienta bloquearán por 10 minutos las 
+conexiones que hayan fallado 5 veces al intentar acceder a tu servidor, 
+aunque se pueden <a href="https://wiki.archlinux.org/title/Fail2ban">modificar</a> estos 
+valores.</p>
+<h2 id="firewall">Firewall</h2>
+<p>La manera más sencilla de controlar el tráfico entrante y saliente es mediante
+el paquete <em>ufw</em>.</p>
+<p>Puedes instalar, configurar, habilitar y comprobar el servicio con los 
+siguientes comandos con privilegios root.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">apt</span><span> install ufw
+</span><span style="color:#bf616a;">ufw</span><span> default deny incoming
+</span><span style="color:#bf616a;">ufw</span><span> default allow outgoing
+</span><span style="color:#bf616a;">ufw</span><span> allow ssh
+</span><span style="color:#bf616a;">ufw</span><span> enable
+</span><span style="color:#bf616a;">ufw</span><span> status
+</span></code></pre>
+<p>Se permite tráfico por medio de ssh, de lo contrario no podrás acceder al
+servidor.</p>
+
+</main>
+<!-- MAIN CONTENT END -->
+
+</div>
+    <footer class="footer">
+      <p class="footer-logo">lu1s9</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <title>lu1s9 blog</title>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="navbar">
+        <ul class="navbar-links">
+          <li class="navbar-logo"><a href="https:&#x2F;&#x2F;lu1s09.xyz">lu1s9</a></li>
+          <li class="navbar-link">
+            <a href="https://github.com/lu1s9"
+              ><i class="ri-github-fill"></i
+            ></a>
+        </ul>
+      </nav>
+    </header>
+    <div class="container">
+
+<!-- MAIN CONTENT START -->
+<main class="main">
+  <h1 class="post-title">Acceder a un servidor mediante SSH</h1>
+  <p class="post-date">
+    Mayo 10,2023
+  </p>
+
+  <!-- LIST_TAGS START -->
+  <ul class="post-tags">
+    <li class="post-tag">
+      <a href="https://lu1s09.xyz/tags/debian/"
+        >#debian</a
+      >
+    </li>
+    
+    <li class="post-tag">
+      <a href="https://lu1s09.xyz/tags/ssh/"
+        >#ssh</a
+      >
+    </li>
+    
+    <li class="post-tag">
+      <a href="https://lu1s09.xyz/tags/vps/"
+        >#vps</a
+      >
+    </li>
+    </ul>
+  <!-- LIST_TAGS END -->
+
+  <p>Acceder a un servidor con claves SSH tiene dos principales ventajas:</p>
+<ul>
+<li><strong>Acceder sin contraseña:</strong> Marcando como dispositivo de confianza a tu
+computadora local para acceder al servidor.</li>
+<li><strong>Aumenta la seguridad:</strong> Dado que ahora no necesitas una contraseña para
+acceder, puedes desactivar por completo esta opción, permitiendo solo el
+acceso a tus dispositivos previamente indicados.</li>
+</ul>
+<h2 id="acceder-al-servidor">Acceder al servidor</h2>
+<p>Accede desde la terminal a tu servidor con las credenciales apropiadas.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">ssh</span><span> root@142.250.69.14
+</span></code></pre>
+<p>Puedes cambiar la dirección IP por tu dominio si ya lo 
+<a href="https://lu1s09.xyz/dns/">configuraste</a> previamente.</p>
+<h2 id="crear-usuario-no-root">Crear usuario no root</h2>
+<p>No es buena práctica acceder como usuario root mediante ssh, por lo cual será
+necesario crear un usuario con los privilegios adecuados. Además necesitarás 
+tener instalado el paquete <code>sudo</code>.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">useradd -m -s</span><span> /bin/bash</span><span style="color:#bf616a;"> -G</span><span> sudo usuario
+</span><span style="color:#bf616a;">passwd</span><span> usuario
+</span></code></pre>
+<ul>
+<li>La opción <code>-m</code> creará el directorio <em>home</em> para el usuario indicado.</li>
+<li>La opción <code>-s</code> indica la <code>shell</code> a usar.</li>
+<li>La opción <code>-G</code> indica los grupos suplementarios del nuevo usuario.</li>
+<li>El comando <code>passwd</code> asignará la contraseña al usuario indicado.</li>
+</ul>
+<p>Ahora puedes salir de la sesión y volver a entrar con el usuario y contraseña 
+previamente indicada,</p>
+<h2 id="generar-clave-ssh">Generar clave SSH</h2>
+<p>Desde tu equipo local puedes generar una clave ssh con el siguiente comando:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">ssh-keygen -t</span><span> ed25519</span><span style="color:#bf616a;"> -C </span><span>&quot;</span><span style="color:#a3be8c;">tu_email@ejemplo.com</span><span>&quot;
+</span></code></pre>
+<p>Puedes dejar la ruta del archivo por defecto y asignar una <em>passphrase</em> para
+agregar una capa de seguridad.</p>
+<h2 id="copiar-clave-a-tu-servidor">Copiar clave a tu servidor</h2>
+<p>Con el siguiente comando, tu computadora añadirá la clave ssh pública a una 
+lista de dispositivos autorizados en el servidor, cambiando el usuario y
+dirección IP correspondiente.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">ssh-copy-id</span><span> usuario@142.250.69.14
+</span></code></pre>
+<p>Ahora podrás acceder desde ese dispositivo al servidor sin necesidad de
+ingresar la contraseña en cada ocasión.</p>
+<h2 id="configuracion-de-seguridad-de-ssh">Configuración de Seguridad de SSH</h2>
+<p>Algunos de los ajustes básicos recomendados para mantener la seguridad 
+de tu servidor involucran:</p>
+<ul>
+<li>Denegar el acceso como usuario <em>root</em>.</li>
+<li>Evitar el acceso con contraseñas.</li>
+</ul>
+<p>Cambia y comprueba los siguientes valores dentro del archivo 
+<code>/etc/ssh/sshd_config</code>.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">PermitRootLogin</span><span> no
+</span><span style="color:#bf616a;">PasswordAuthentication</span><span> no
+</span><span style="color:#bf616a;">PermitEmptyPasswords</span><span> no
+</span></code></pre>
+<p>Y reinicia el servicio.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sudo</span><span> systemctl reload sshd
+</span></code></pre>
+<p>Adicionalmente, puedes 
+<a href="https://lu1s09.xyz/firewall/">configurar el firewall</a> para 
+aumentar aún más la seguridad de tu servidor.</p>
+
+</main>
+<!-- MAIN CONTENT END -->
+
+</div>
+    <footer class="footer">
+      <p class="footer-logo">lu1s9</p>
+    </footer>
+  </body>
+</html>
