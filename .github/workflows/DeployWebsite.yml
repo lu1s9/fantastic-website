@@ -1,34 +1,17 @@
-name: Build and Publish to AWS
-
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'src/**'
-      
-  workflow_dispatch:
-    
+# On every push this script is executed
+on: push
+name: Build and deploy GH Pages
 jobs:
-  run:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v3
-      - uses: taiki-e/install-action@v2
-        with:
-          tool: zola@0.17.2
-      - name: Build
-        run: zola build
-        working-directory: ./src
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./public/ s3://${{ secrets.S3_BUCKET }} --delete          
-
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: build_and_deploy
+        uses: shalzz/zola-deploy-action@v0.17.2
+        env:
+          # Target branch
+          PAGES_BRANCH: gh-pages
+          # if publishing to the same repo, use the automatic token
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
